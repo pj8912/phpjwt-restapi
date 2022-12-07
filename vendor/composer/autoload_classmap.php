@@ -15,4 +15,6 @@ return array(
     'Firebase\\JWT\\Key' => $vendorDir . '/firebase/php-jwt/src/Key.php',
     'Firebase\\JWT\\SignatureInvalidException' => $vendorDir . '/firebase/php-jwt/src/SignatureInvalidException.php',
     'JwtRest\\Database\\Database' => $baseDir . '/src/Database/Database.php',
+    'JwtRest\\Handle' => $baseDir . '/src/Handle.php',
+    'JwtRest\\Models\\Authentication' => $baseDir . '/src/Models/Authentication.php',
 );

@@ -38,6 +38,8 @@ class ComposerStaticInit03074bb86af9396ccfc83f3eedea5c18
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
         'JwtRest\\Database\\Database' => __DIR__ . '/../..' . '/src/Database/Database.php',
+        'JwtRest\\Handle' => __DIR__ . '/../..' . '/src/Handle.php',
+        'JwtRest\\Models\\Authentication' => __DIR__ . '/../..' . '/src/Models/Authentication.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
