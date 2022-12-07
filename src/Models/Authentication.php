@@ -27,7 +27,7 @@ class Authentication{
 
 	public function check_user()
 	{
-		$sql = "SELECT * FROM {$this->table} WHERE user_email = :user_email";
+		$sql = "SELECT user_id, user_fullname, user_email FROM {$this->table} WHERE user_email = :user_email";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(':user_email', $this->email);
 		if($stmt->execute()){
