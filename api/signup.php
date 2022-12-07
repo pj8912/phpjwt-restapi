@@ -3,12 +3,12 @@
 use JwtRest\Database\Database;
 use JwtRest\Models\Authentication;
 
-header("Access-Control-Allow-Origin: *");
+
+header("Access-Control-Allow-Origin: * ");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
 
 //database
 $database = new Database();
@@ -28,16 +28,6 @@ $auth->flname = $data->flname; //fullname
 $auth->email = $data->email; //email
 
 
-//email validation 
-if(!filter_var($auth->email, FILTER_VALIDATE_EMAIL)) {
-	echo json_encode([
-                        "message" => "Valid Eamil Address !"
-    
-	]);
-  
-}
-
-
 
 $result = $auth->check_user();
 $num = $result->rowCount();
@@ -50,7 +40,7 @@ if($num > 0){
 }
 else{
 	$hashedPwd = password_hash($data->pwd, PASSWORD_DEFAULT);
-	$auth->pwd = $hashedPwd;
+	$auth->pwd = $hashedPwd; //hashed password
 	
 	if($auth->createUser()){
 	

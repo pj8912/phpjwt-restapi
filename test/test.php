@@ -12,6 +12,7 @@ echo PHP_EOL
 	use JwtRest\Handle;
 	echo Handle::test().PHP_EOL;
 	
-
+	use JwtRest\Models\Authentication;
+	echo Authentication::test();
 ?>
 
