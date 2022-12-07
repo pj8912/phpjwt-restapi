@@ -41,4 +41,8 @@ class Handle{
 		}
 	}
 
+	public static function test(){
+		return "handle working";
+	}
+
 }

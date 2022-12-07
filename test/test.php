@@ -9,7 +9,9 @@ echo PHP_EOL
 
 <?php
 
-	$db = new Database();
-	echo $db->connect();
+	use JwtRest\Handle;
+	echo Handle::test().PHP_EOL;
+	
+
 ?>
 
