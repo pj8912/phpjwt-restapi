@@ -1,2 +1,2 @@
-# PHPJWT-RESTAPI-AUTH
+# phpjwt-restapi
 php-jwt and REST API Authentication
