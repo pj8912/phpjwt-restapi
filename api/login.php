@@ -14,8 +14,6 @@ use JwtRest\Models\Authentication;
 use JwtRest\Handle;
 
 
-
-
 //database
 $database = new Database();
 $db = $database->connect();
@@ -64,7 +62,7 @@ if($num > 0){
 
 	 
 		 $handle  = new Handle();
-		 $token = $handle->encodedData('http://localhost/PHPJWT-RESTAPI-AUTH', $user_data);
+		 $token = $handle->encodedData('http://localhost/phpjwt-restapi', $user_data);
 
 		 echo json_encode(
 

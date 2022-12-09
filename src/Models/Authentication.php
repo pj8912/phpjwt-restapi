@@ -13,12 +13,11 @@ class Authentication{
 	public $flname, $email, $pwd;
 
 	public function createUser(){
-		$sql = "INSERT INTO {$this->table}(user_fullname,user_email,user_pwd,created_at) VALUES(:user_fullname, :user_email, :user_pwd, :created_at)";
+		$sql = "INSERT INTO {$this->table}(user_fullname,user_email,user_pwd,created_at) VALUES(:user_fullname, :user_email, :user_pwd, NOW())";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(":user_fullname", $this->flname);
 		$stmt->bindParam(":user_email", $this->email);
 		$stmt->bindParam(":user_pwd", $this->pwd);
-		$stmt->bindParam(':created_at', 'NOW()');
 		if($stmt->execute()){
 			return true;
 		}
