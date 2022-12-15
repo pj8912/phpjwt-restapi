@@ -1,16 +1,5 @@
 {
-
-	"autoload":{
-		
-		"psr-4":{
-	
-			"JwtRest\\" : "src/"
-		}
-	},
-
-    	"require": {
-        
-		"firebase/php-jwt": "^6.3"
-    
-	}
+    "require": {
+        "firebase/php-jwt": "^6.3"
+    }
 }

@@ -4,13 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit03074bb86af9396ccfc83f3eedea5c18
+class ComposerStaticInite299363086308868a148e28e2347cc7a
 {
     public static $prefixLengthsPsr4 = array (
-        'J' => 
-        array (
-            'JwtRest\\' => 8,
-        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
@@ -18,10 +14,6 @@ class ComposerStaticInit03074bb86af9396ccfc83f3eedea5c18
     );
 
     public static $prefixDirsPsr4 = array (
-        'JwtRest\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
@@ -30,24 +22,14 @@ class ComposerStaticInit03074bb86af9396ccfc83f3eedea5c18
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Firebase\\JWT\\BeforeValidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/BeforeValidException.php',
-        'Firebase\\JWT\\CachedKeySet' => __DIR__ . '/..' . '/firebase/php-jwt/src/CachedKeySet.php',
-        'Firebase\\JWT\\ExpiredException' => __DIR__ . '/..' . '/firebase/php-jwt/src/ExpiredException.php',
-        'Firebase\\JWT\\JWK' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWK.php',
-        'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
-        'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
-        'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
-        'JwtRest\\Database\\Database' => __DIR__ . '/../..' . '/src/Database/Database.php',
-        'JwtRest\\Handle' => __DIR__ . '/../..' . '/src/Handle.php',
-        'JwtRest\\Models\\Authentication' => __DIR__ . '/../..' . '/src/Models/Authentication.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit03074bb86af9396ccfc83f3eedea5c18::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit03074bb86af9396ccfc83f3eedea5c18::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit03074bb86af9396ccfc83f3eedea5c18::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite299363086308868a148e28e2347cc7a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite299363086308868a148e28e2347cc7a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite299363086308868a148e28e2347cc7a::$classMap;
 
         }, null, ClassLoader::class);
     }

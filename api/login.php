@@ -1,86 +1,83 @@
 <?php
+include_once '../config/database.php';
+require "../vendor/autoload.php";
+use \Firebase\JWT\JWT;
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require '../vendor/autoload.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-use JwtRest\Database\Database;
-use JwtRest\Models\Authentication;
-
-
-use JwtRest\Handle;
-
-
-//database
-$database = new Database();
-$db = $database->connect();
-
-//auth
-$auth = new Authentication($db);
+$databaseService = new DatabaseService();
+$conn = $databaseService->getConnection();
 
 
-//get input data
+if(isset($_POST['lbtn'])){
+
+
 $data = json_decode(file_get_contents("php://input"));
 
+$email = $_POST['email'];
+$password = $_POST['password'];
 
-$auth->email = $data->email;
-$auth->pwd = $data->pwd;
+$table_name = 'Users';
 
-$email = $data->email;
+$query = "SELECT id, first_name, last_name, password FROM " . $table_name . " WHERE email = ? LIMIT 0,1";
 
+$stmt = $conn->prepare( $query );
+$stmt->bindParam(1, $email);
+$stmt->execute();
+$num = $stmt->rowCount();
 
-$result = $auth->check_user();
-$num = $result->rowCount();
 if($num > 0){
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = $row['id'];
+    $firstname = $row['first_name'];
+    $lastname = $row['last_name'];
+    $password2 = $row['password'];
 
-	$row = $result->fetch(PDO::FETCH_ASSOC);
+    if(password_verify($password, $password2))
+    {
+        $secret_key = "YOUR_SECRET_KEY";
+        $issuer_claim = "THE_ISSUER"; 
+        $audience_claim = "THE_AUDIENCE";
+        $issuedat_claim = time(); 
+        $notbefore_claim = $issuedat_claim + 10; 
+        $expire_claim = $issuedat_claim + 60; 
+        $token = array(
+            "iss" => $issuer_claim,
+            "aud" => $audience_claim,
+            "iat" => $issuedat_claim,
+            "nbf" => $notbefore_claim,
+            "exp" => $expire_claim,
+            "data" => array(
+                "id" => $id,
+                "firstname" => $firstname,
+                "lastname" => $lastname,
+                "email" => $email
+        ));
 
-	$id = $row['user_id'];
-	$flname = $row['user_fullname'];
-	
-	$hashedPwd = $row['user_pwd'];      
-	$hashedPwdCheck = password_verify($pwd, $hashedPwd);
-       
-	if ($hashedPwdCheck == false) {
+        http_response_code(200);
 
-		 http_response_code(401);
-		 echo json_encode(["message" => "Wrong Password"]);
-	 
-	 } 
-	 else{		 
-	
-		 $user_data = [
-		 	'uid' => $id,
-			'flname'=>$flname,
-			'email' => $email
-		 ];
+        $jwt = JWT::encode($token, $secret_key);
+        echo json_encode(
+            array(
+                "message" => "Successful login.",
+                "jwt" => $jwt,
+                "email" => $email,
+                "expireAt" => $expire_claim
+            ));
+    }
+    else{
 
-		 http_response_code(200);
-
-	 
-		 $handle  = new Handle();
-		 $token = $handle->encodedData('http://localhost/phpjwt-restapi', $user_data);
-
-		 echo json_encode(
-
-			 [
-				 "message" => "Logged In",
-				 "jwt" =>$token,
-				 "email" => $email,
-				 "expire_at" => $handle->expire
-			 
-			 ]
-		 );
-	 
-	 }
+        http_response_code(401);
+        echo json_encode(array("message" => "Login failed.", "password" => $password));
+    }
+    }
 }
-else{
-	http_response_code(401);
-	echo json_encode(["message" => "login failed"]);
-}
-
 ?>
-
